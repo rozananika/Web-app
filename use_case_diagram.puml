@@ -1,0 +1,106 @@
+@startuml Library Management System - Use Cases
+
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor #2688d4
+    ArrowColor #2688d4
+}
+
+' Actors
+actor "Guest User" as Guest
+actor "Member" as Member
+actor "Librarian" as Librarian
+actor "Admin" as Admin
+
+' Use cases
+rectangle "Library Management System" {
+    ' Authentication & Profile
+    usecase "Register Account" as Register
+    usecase "Login" as Login
+    usecase "Manage Profile" as ManageProfile
+    usecase "View Dashboard" as ViewDashboard
+
+    ' Book Management
+    usecase "Search Books" as SearchBooks
+    usecase "View Book Details" as ViewBook
+    usecase "Add New Book" as AddBook
+    usecase "Update Book Info" as UpdateBook
+    usecase "Remove Book" as RemoveBook
+
+    ' Loan Management
+    usecase "Borrow Book" as BorrowBook
+    usecase "Return Book" as ReturnBook
+    usecase "View Loan History" as ViewLoans
+    usecase "Manage Overdue Books" as ManageOverdue
+
+    ' Reviews & Ratings
+    usecase "Write Review" as WriteReview
+    usecase "Rate Book" as RateBook
+    usecase "View Reviews" as ViewReviews
+
+    ' Recommendations
+    usecase "Get Personalized\nRecommendations" as GetRecommendations
+    usecase "Update Reading\nPreferences" as UpdatePreferences
+
+    ' Analytics
+    usecase "View Reading Stats" as ViewStats
+    usecase "Generate Reports" as GenerateReports
+    usecase "Monitor System Usage" as MonitorSystem
+
+    ' User Management
+    usecase "Manage Users" as ManageUsers
+    usecase "Assign Roles" as AssignRoles
+}
+
+' Guest User relationships
+Guest --> Register
+Guest --> Login
+Guest --> SearchBooks
+Guest --> ViewBook
+Guest --> ViewReviews
+
+' Member relationships
+Member --> ManageProfile
+Member --> ViewDashboard
+Member --> SearchBooks
+Member --> ViewBook
+Member --> BorrowBook
+Member --> ReturnBook
+Member --> ViewLoans
+Member --> WriteReview
+Member --> RateBook
+Member --> ViewReviews
+Member --> GetRecommendations
+Member --> UpdatePreferences
+Member --> ViewStats
+
+' Librarian relationships
+Librarian --> ManageProfile
+Librarian --> ViewDashboard
+Librarian --> SearchBooks
+Librarian --> ViewBook
+Librarian --> AddBook
+Librarian --> UpdateBook
+Librarian --> ManageOverdue
+Librarian --> ViewLoans
+Librarian --> GenerateReports
+
+' Admin relationships
+Admin --> ManageUsers
+Admin --> AssignRoles
+Admin --> MonitorSystem
+Admin --> GenerateReports
+
+' Include relationships
+BorrowBook .> Login : <<include>>
+ReturnBook .> Login : <<include>>
+WriteReview .> Login : <<include>>
+ManageProfile .> Login : <<include>>
+GetRecommendations .> Login : <<include>>
+
+' Extend relationships
+ViewBook <. ViewReviews : <<extend>>
+ViewDashboard <. ViewStats : <<extend>>
+
+@enduml

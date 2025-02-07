@@ -1,0 +1,170 @@
+@startuml Library Management System - Class Diagram
+
+skinparam class {
+    BackgroundColor White
+    ArrowColor #2688d4
+    BorderColor #2688d4
+}
+
+package "Controllers" {
+    class BookController {
+        + getAllBooks(): List<Book>
+        + getBookById(Long id): Book
+        + createBook(BookDTO book): Book
+        + updateBook(Long id, BookDTO book): Book
+        + deleteBook(Long id): void
+        + searchBooks(String query): List<Book>
+    }
+
+    class RecommendationController {
+        + getRecommendations(Long userId): List<Book>
+        + getPersonalizedRecommendations(): List<Book>
+        + updateRecommendations(): void
+    }
+
+    class UserController {
+        + register(UserDTO user): User
+        + login(LoginDTO credentials): Token
+        + getUserProfile(): User
+        + updateProfile(UserDTO user): User
+    }
+
+    class LoanController {
+        + borrowBook(Long bookId): Loan
+        + returnBook(Long loanId): void
+        + getUserLoans(): List<Loan>
+        + getOverdueLoans(): List<Loan>
+    }
+
+    class AnalyticsController {
+        + getUserAnalytics(): Analytics
+        + getLibraryStats(): LibraryStats
+        + updateReadingTime(Long minutes): void
+    }
+}
+
+package "Services" {
+    class BookService {
+        - bookRepository: BookRepository
+        + findAll(): List<Book>
+        + findById(Long id): Optional<Book>
+        + save(Book book): Book
+        + delete(Long id): void
+        + search(String query): List<Book>
+    }
+
+    class RecommendationService {
+        - bookRepository: BookRepository
+        - userService: UserService
+        + generateRecommendations(User user): List<Book>
+        + updateUserPreferences(User user): void
+    }
+
+    class UserService {
+        - userRepository: UserRepository
+        - passwordEncoder: PasswordEncoder
+        + createUser(UserDTO user): User
+        + authenticateUser(String username, String password): User
+    }
+
+    class LoanService {
+        - loanRepository: LoanRepository
+        - bookService: BookService
+        + createLoan(User user, Book book): Loan
+        + completeLoan(Loan loan): void
+        + checkOverdue(): List<Loan>
+    }
+
+    class AnalyticsService {
+        - analyticsRepository: AnalyticsRepository
+        + calculateUserStats(User user): Analytics
+        + updateReadingProgress(User user, int pages): void
+    }
+}
+
+package "Entities" {
+    class Book {
+        - id: Long
+        - isbn: String
+        - title: String
+        - author: String
+        - publisher: String
+        - publicationYear: Integer
+        - genre: String
+        - description: String
+        - totalCopies: Integer
+        - availableCopies: Integer
+        - coverImageUrl: String
+    }
+
+    class User {
+        - id: Long
+        - username: String
+        - email: String
+        - passwordHash: String
+        - role: Role
+        - createdAt: LocalDateTime
+        - updatedAt: LocalDateTime
+    }
+
+    class Loan {
+        - id: Long
+        - book: Book
+        - user: User
+        - borrowedDate: LocalDateTime
+        - dueDate: LocalDateTime
+        - returnDate: LocalDateTime
+        - status: LoanStatus
+    }
+
+    class Review {
+        - id: Long
+        - book: Book
+        - user: User
+        - rating: Integer
+        - reviewText: String
+        - createdAt: LocalDateTime
+    }
+
+    class Recommendation {
+        - id: Long
+        - user: User
+        - book: Book
+        - score: Double
+        - createdAt: LocalDateTime
+    }
+
+    class Analytics {
+        - id: Long
+        - user: User
+        - booksRead: Integer
+        - totalPagesRead: Integer
+        - favoriteGenre: String
+        - readingTimeMinutes: Integer
+        - lastUpdated: LocalDateTime
+    }
+}
+
+' Relationships
+BookController --> BookService
+RecommendationController --> RecommendationService
+UserController --> UserService
+LoanController --> LoanService
+AnalyticsController --> AnalyticsService
+
+BookService --> Book
+UserService --> User
+LoanService --> Loan
+RecommendationService --> Recommendation
+AnalyticsService --> Analytics
+
+Book "1" -- "0..*" Loan
+Book "1" -- "0..*" Review
+Book "1" -- "0..*" Recommendation
+
+User "1" -- "0..*" Loan
+User "1" -- "0..*" Review
+User "1" -- "0..*" Recommendation
+User "1" -- "1" Analytics
+
+@enduml

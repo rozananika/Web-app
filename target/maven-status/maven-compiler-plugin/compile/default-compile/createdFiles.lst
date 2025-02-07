@@ -1,0 +1,9 @@
+com\library\model\Book.class
+com\library\model\Author.class
+com\library\model\User.class
+com\library\dto\SignUpRequest.class
+com\library\model\Role$ERole.class
+com\library\dto\JwtResponse.class
+com\library\service\EmailService.class
+com\library\model\BookLending.class
+com\library\model\Role.class

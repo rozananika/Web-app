@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System - System Design</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2688d4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .diagram {
+            width: 100%;
+            text-align: center;
+            margin: 30px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .description {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Library Management System - System Design</h1>
+        
+        <h2>Use Case Diagram</h2>
+        <div class="description">
+            <p>The system has four main user roles with different permissions and capabilities:</p>
+            <ul>
+                <li><strong>Guest User:</strong> Can browse books, view details, and register</li>
+                <li><strong>Member:</strong> Can borrow books, write reviews, and get personalized recommendations</li>
+                <li><strong>Librarian:</strong> Can manage books, handle overdue cases, and generate reports</li>
+                <li><strong>Admin:</strong> Can manage users, assign roles, and monitor system usage</li>
+            </ul>
+        </div>
+        <div class="diagram">
+            <img src="https://www.plantuml.com/plantuml/png/~1ZLF1RjD03BthAmYVacmB6cODGKf1L0TIi9KxJCHsxQNDT6TQ6V7_VsKmGAHIoRVVUPkPyxptthpUG-5XGLM5MAWLk4w22wWBFg2SSgKA5Jk2QXVXcIYq5-q6XSYH5-q7i6nKKXqAGAqQH2KeYCK8Kc4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK" alt="Use Case Diagram">
+        </div>
+
+        <h2>Sequence Diagram - Book Borrowing Process</h2>
+        <div class="description">
+            <p>The sequence diagram illustrates the book borrowing process, which includes:</p>
+            <ul>
+                <li><strong>Book Search & Selection:</strong> User searches and selects a book</li>
+                <li><strong>Book Borrowing:</strong> System checks availability and processes the loan</li>
+                <li><strong>Analytics Update:</strong> System updates user's borrowing statistics</li>
+            </ul>
+        </div>
+        <div class="diagram">
+            <img src="https://www.plantuml.com/plantuml/png/~1ZLF1RjD03BthAmYVacmB6cODGKf1L0TIi9KxJCHsxQNDT6TQ6V7_VsKmGAHIoRVVUPkPyxptthpUG-5XGLM5MAWLk4w22wWBFg2SSgKA5Jk2QXVXcIYq5-q6XSYH5-q7i6nKKXqAGAqQH2KeYCK8Kc4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK0Y4qfQKAYqGKLXW8L0oL0Y0KeIGK" alt="Sequence Diagram">
+        </div>
+    </div>
+</body>
+</html>

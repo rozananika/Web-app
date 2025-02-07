@@ -1,0 +1,96 @@
+@startuml Library Management System - Book Borrowing Sequence
+
+skinparam sequence {
+    ArrowColor #2688d4
+    LifeLineBackgroundColor White
+    LifeLineBorderColor #2688d4
+    ParticipantBackgroundColor White
+    ParticipantBorderColor #2688d4
+}
+
+actor Member
+participant "Frontend\nUI" as UI
+participant "Book\nController" as BookCtrl
+participant "Loan\nController" as LoanCtrl
+participant "Book\nService" as BookSvc
+participant "Loan\nService" as LoanSvc
+database "Database" as DB
+
+== Book Search & Selection ==
+Member -> UI: Search for book
+activate UI
+UI -> BookCtrl: searchBooks(query)
+activate BookCtrl
+BookCtrl -> BookSvc: search(query)
+activate BookSvc
+BookSvc -> DB: SELECT books
+activate DB
+DB --> BookSvc: Return matching books
+deactivate DB
+BookSvc --> BookCtrl: Book list
+deactivate BookSvc
+BookCtrl --> UI: Search results
+deactivate BookCtrl
+UI --> Member: Display books
+deactivate UI
+
+Member -> UI: Select book
+activate UI
+UI -> BookCtrl: getBookDetails(bookId)
+activate BookCtrl
+BookCtrl -> BookSvc: findById(bookId)
+activate BookSvc
+BookSvc -> DB: SELECT book
+activate DB
+DB --> BookSvc: Book details
+deactivate DB
+BookSvc --> BookCtrl: Book object
+deactivate BookSvc
+BookCtrl --> UI: Book details
+deactivate BookCtrl
+UI --> Member: Display book details
+deactivate UI
+
+== Book Borrowing ==
+Member -> UI: Click "Borrow"
+activate UI
+UI -> LoanCtrl: borrowBook(bookId)
+activate LoanCtrl
+LoanCtrl -> LoanSvc: createLoan(userId, bookId)
+activate LoanSvc
+
+LoanSvc -> BookSvc: checkAvailability(bookId)
+activate BookSvc
+BookSvc -> DB: CHECK available_copies
+activate DB
+DB --> BookSvc: Copies available
+deactivate DB
+BookSvc --> LoanSvc: Book available
+deactivate BookSvc
+
+LoanSvc -> DB: BEGIN TRANSACTION
+activate DB
+LoanSvc -> DB: INSERT loan
+DB --> LoanSvc: Loan created
+LoanSvc -> DB: UPDATE book available_copies
+DB --> LoanSvc: Copies updated
+LoanSvc -> DB: COMMIT
+deactivate DB
+
+LoanSvc --> LoanCtrl: Loan details
+deactivate LoanSvc
+LoanCtrl --> UI: Success response
+deactivate LoanCtrl
+UI --> Member: Confirmation message
+deactivate UI
+
+== Update Analytics ==
+UI -> "Analytics\nService" as AnalyticsSvc: updateBorrowingStats()
+activate AnalyticsSvc
+AnalyticsSvc -> DB: UPDATE analytics
+activate DB
+DB --> AnalyticsSvc: Stats updated
+deactivate DB
+deactivate AnalyticsSvc
+
+@enduml

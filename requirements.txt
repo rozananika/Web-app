@@ -1,0 +1,40 @@
+# Backend Dependencies
+spring-boot-starter-web=3.2.0
+spring-boot-starter-data-jpa=3.2.0
+spring-boot-starter-security=3.2.0
+spring-boot-starter-validation=3.2.0
+spring-boot-starter-mail=3.2.0
+mysql-connector-java=8.0.33
+jjwt-api=0.11.5
+jjwt-impl=0.11.5
+jjwt-jackson=0.11.5
+springdoc-openapi-starter-webmvc-ui=2.2.0
+apache-poi=5.2.3
+lombok=1.18.30
+
+# Frontend Dependencies
+react=18.2.0
+react-dom=18.2.0
+react-router-dom=6.20.0
+@mui/material=5.14.0
+@mui/icons-material=5.14.0
+@emotion/react=11.11.0
+@emotion/styled=11.11.0
+axios=1.6.2
+recharts=2.10.3
+@nivo/core=0.84.0
+@nivo/bar=0.84.0
+@nivo/line=0.84.0
+@nivo/pie=0.84.0
+react-beautiful-dnd=13.1.1
+date-fns=2.30.0
+jwt-decode=4.0.0
+
+# Development Dependencies
+spring-boot-devtools=3.2.0
+h2database=2.2.224
+react-scripts=5.0.1
+@testing-library/react=14.1.2
+@testing-library/jest-dom=6.1.5
+eslint=8.55.0
+prettier=3.1.0

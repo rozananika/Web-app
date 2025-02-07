@@ -1,0 +1,86 @@
+@startuml Library Management System
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <u>x</u>
+!define foreign_key(x) #x#
+
+skinparam class {
+    BackgroundColor White
+    ArrowColor #2688d4
+    BorderColor #2688d4
+}
+
+table(users) {
+    primary_key(user_id): BIGINT
+    username: VARCHAR(50)
+    email: VARCHAR(100)
+    password_hash: VARCHAR(255)
+    role: VARCHAR(20)
+    created_at: TIMESTAMP
+    updated_at: TIMESTAMP
+}
+
+table(books) {
+    primary_key(book_id): BIGINT
+    isbn: VARCHAR(13)
+    title: VARCHAR(255)
+    author: VARCHAR(255)
+    publisher: VARCHAR(255)
+    publication_year: INT
+    genre: VARCHAR(100)
+    description: TEXT
+    total_copies: INT
+    available_copies: INT
+    cover_image_url: VARCHAR(255)
+    created_at: TIMESTAMP
+    updated_at: TIMESTAMP
+}
+
+table(book_loans) {
+    primary_key(loan_id): BIGINT
+    foreign_key(book_id): BIGINT
+    foreign_key(user_id): BIGINT
+    borrowed_date: TIMESTAMP
+    due_date: TIMESTAMP
+    return_date: TIMESTAMP
+    status: VARCHAR(20)
+}
+
+table(book_reviews) {
+    primary_key(review_id): BIGINT
+    foreign_key(book_id): BIGINT
+    foreign_key(user_id): BIGINT
+    rating: INT
+    review_text: TEXT
+    created_at: TIMESTAMP
+}
+
+table(book_recommendations) {
+    primary_key(recommendation_id): BIGINT
+    foreign_key(user_id): BIGINT
+    foreign_key(book_id): BIGINT
+    recommendation_score: DECIMAL
+    created_at: TIMESTAMP
+}
+
+table(reading_analytics) {
+    primary_key(analytics_id): BIGINT
+    foreign_key(user_id): BIGINT
+    books_read: INT
+    total_pages_read: INT
+    favorite_genre: VARCHAR(100)
+    reading_time_minutes: INT
+    last_updated: TIMESTAMP
+}
+
+' Relationships
+users "1" -- "0..*" book_loans
+users "1" -- "0..*" book_reviews
+users "1" -- "0..*" book_recommendations
+users "1" -- "1" reading_analytics
+
+books "1" -- "0..*" book_loans
+books "1" -- "0..*" book_reviews
+books "1" -- "0..*" book_recommendations
+
+@enduml
